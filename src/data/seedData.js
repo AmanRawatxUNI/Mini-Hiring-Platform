@@ -226,6 +226,8 @@ export async function seedDatabase(force = false) {
   try {
     // Check if already seeded
     const existingJobs = await dbOperations.getJobs()
+    console.log('Existing jobs count:', existingJobs.length)
+    
     if (existingJobs.length > 0 && !force) {
       console.log('Database already seeded')
       return
@@ -239,6 +241,8 @@ export async function seedDatabase(force = false) {
       await dbOperations.db.assessments.clear()
       await dbOperations.db.notes.clear()
     }
+    
+    console.log('Starting database seeding...')
 
     console.log('Seeding database...')
     
@@ -266,12 +270,14 @@ export async function seedDatabase(force = false) {
     await dbOperations.setSetting('theme', 'light')
     await dbOperations.setSetting('seeded', true)
     
-    console.log('Database seeded successfully!')
-    console.log(`- ${insertedJobs.length} jobs`)
-    console.log(`- ${candidates.length} candidates`)
-    console.log(`- ${assessments.length} assessments`)
+    console.log('✅ Database seeded successfully!')
+    console.log(`✅ ${insertedJobs.length} jobs created`)
+    console.log(`✅ ${candidates.length} candidates created`)
+    console.log(`✅ ${assessments.length} assessments created`)
     
   } catch (error) {
-    console.error('Error seeding database:', error)
+    console.error('❌ Error seeding database:', error)
+    console.error('Error details:', error.message, error.stack)
+    throw error
   }
 }

@@ -3,7 +3,7 @@ import { dbOperations } from '../store/database.js'
 
 // Custom hook for theme management with persistence
 export function useTheme() {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('dark')
 
   useEffect(() => {
     // Load theme from database
@@ -14,11 +14,9 @@ export function useTheme() {
           setTheme(savedTheme)
           applyTheme(savedTheme)
         } else {
-          // Check system preference
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-          const systemTheme = prefersDark ? 'dark' : 'light'
-          setTheme(systemTheme)
-          applyTheme(systemTheme)
+          // Default to dark mode
+          setTheme('dark')
+          applyTheme('dark')
         }
       } catch (error) {
         console.error('Error loading theme:', error)
