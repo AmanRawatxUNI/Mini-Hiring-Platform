@@ -29,7 +29,7 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.01 }}
+              transition={{ duration: 0 }}
               className={`relative w-full ${sizeClasses[size]} bg-white dark:bg-gray-800 rounded-lg shadow-xl`}
             >
               {/* Header */}

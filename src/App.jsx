@@ -86,7 +86,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <JobsPage />
                       </motion.div>
@@ -100,7 +100,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <JobDetail />
                       </motion.div>
@@ -114,7 +114,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <CandidatesPage />
                       </motion.div>
@@ -128,7 +128,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <CandidateProfile />
                       </motion.div>
@@ -142,7 +142,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <AssessmentsPage />
                       </motion.div>
@@ -156,7 +156,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <AnalyticsPage />
                       </motion.div>
@@ -170,7 +170,7 @@ function App() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.01 }}
+                        transition={{ duration: 0 }}
                       >
                         <ProfileSettings />
                       </motion.div>

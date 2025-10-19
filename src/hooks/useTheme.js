@@ -6,6 +6,9 @@ export function useTheme() {
   const [theme, setTheme] = useState('dark')
 
   useEffect(() => {
+    // Apply dark mode immediately
+    applyTheme('dark')
+    
     // Load theme from database
     const loadTheme = async () => {
       try {
@@ -17,9 +20,12 @@ export function useTheme() {
           // Default to dark mode
           setTheme('dark')
           applyTheme('dark')
+          await dbOperations.setSetting('theme', 'dark')
         }
       } catch (error) {
         console.error('Error loading theme:', error)
+        setTheme('dark')
+        applyTheme('dark')
       }
     }
 

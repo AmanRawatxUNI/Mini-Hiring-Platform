@@ -233,7 +233,7 @@ const CandidatesPage = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.01 }}
+            transition={{ duration: 0 }}
             className="mx-4 mb-4 p-4 card hover:shadow-md transition-shadow cursor-pointer relative overflow-hidden group"
           >
           <div className="flex items-center space-x-4">
@@ -298,7 +298,7 @@ const CandidatesPage = () => {
             {...provided.dragHandleProps}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.01 }}
+            transition={{ duration: 0 }}
             className={`p-3 mb-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-md transition-shadow ${
               snapshot.isDragging ? 'shadow-lg rotate-2' : ''
             }`}

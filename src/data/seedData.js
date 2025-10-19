@@ -267,7 +267,7 @@ export async function seedDatabase(force = false) {
     }
     
     // Set initial settings
-    await dbOperations.setSetting('theme', 'light')
+    await dbOperations.setSetting('theme', 'dark')
     await dbOperations.setSetting('seeded', true)
     
     console.log('✅ Database seeded successfully!')
