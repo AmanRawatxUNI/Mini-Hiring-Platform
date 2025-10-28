@@ -54,6 +54,19 @@ const JobDetail = () => {
     }
   }
 
+  const handleEdit = () => {
+    navigate('/jobs', { state: { editJob: job } })
+  }
+
+  const handleToggleStatus = async () => {
+    const newStatus = job.status === 'active' ? 'archived' : 'active'
+    await request(() => api.updateJob(job.id, { status: newStatus }), {
+      onSuccess: (updatedJob) => {
+        setJob(updatedJob)
+      }
+    })
+  }
+
   const candidatesByStage = candidates.reduce((acc, candidate) => {
     acc[candidate.stage] = (acc[candidate.stage] || 0) + 1
     return acc
@@ -166,6 +179,7 @@ const JobDetail = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleEdit}
                 className="flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
               >
                 <PencilIcon className="h-4 w-4 mr-2" />
@@ -175,7 +189,9 @@ const JobDetail = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
+                onClick={handleToggleStatus}
+                disabled={loading}
+                className="flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-white/20 transition-colors disabled:opacity-50"
               >
                 {job.status === 'active' ? (
                   <>

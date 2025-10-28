@@ -13,24 +13,25 @@ const Modal = ({ isOpen, onClose, title, children, size = 'md' }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm"
+            className="fixed inset-0 bg-gray-900/70 backdrop-blur-md"
             onClick={onClose}
           />
 
-          {/* Modal */}
-          <div className="flex min-h-full items-center justify-center p-4">
+          {/* Centering Container */}
+          <div className="min-h-screen flex items-center justify-center p-4">
+            {/* Modal */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0 }}
-              className={`relative w-full ${sizeClasses[size]} bg-white dark:bg-gray-800 rounded-lg shadow-xl`}
+              className={`relative z-10 w-full ${sizeClasses[size]} bg-white dark:bg-gray-800 rounded-lg shadow-xl my-8`}
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">

@@ -60,10 +60,10 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen relative overflow-hidden" style={{ willChange: 'transform' }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-100 via-fuchsia-50 to-cyan-100 dark:from-slate-900 dark:via-indigo-950 dark:to-slate-900"></div>
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-violet-400/40 via-purple-400/40 to-fuchsia-400/40 rounded-full blur-3xl transform-gpu"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-400/40 via-blue-400/40 to-indigo-400/40 rounded-full blur-3xl transform-gpu"></div>
-        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-gradient-to-br from-pink-400/30 via-rose-400/30 to-orange-400/30 rounded-full blur-3xl transform-gpu"></div>
+        <div className="absolute inset-0 bg-gray-50 dark:bg-gradient-to-br dark:from-slate-900 dark:via-indigo-950 dark:to-slate-900"></div>
+        <div className="absolute top-0 right-0 w-[700px] h-[700px] dark:bg-gradient-to-br dark:from-violet-400/40 dark:via-purple-400/40 dark:to-fuchsia-400/40 rounded-full blur-3xl transform-gpu"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] dark:bg-gradient-to-tr dark:from-cyan-400/40 dark:via-blue-400/40 dark:to-indigo-400/40 rounded-full blur-3xl transform-gpu"></div>
+        <div className="absolute top-1/2 left-1/2 w-[500px] h-[500px] dark:bg-gradient-to-br dark:from-pink-400/30 dark:via-rose-400/30 dark:to-orange-400/30 rounded-full blur-3xl transform-gpu"></div>
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         
         <div className="lg:pl-64 relative z-10">

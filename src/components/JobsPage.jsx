@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { 
@@ -20,6 +20,7 @@ import Modal from './Modal.jsx'
 import { Menu } from '@headlessui/react'
 
 const JobsPage = () => {
+  const location = useLocation()
   const [jobs, setJobs] = useState([])
   const [filteredJobs, setFilteredJobs] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
@@ -46,6 +47,14 @@ const JobsPage = () => {
   useEffect(() => {
     loadJobs()
   }, [])
+
+  // Handle edit from job detail page
+  useEffect(() => {
+    if (location.state?.editJob) {
+      handleEditJob(location.state.editJob)
+      window.history.replaceState({}, document.title)
+    }
+  }, [location.state])
 
   // Filter jobs when search or filter changes
   useEffect(() => {
@@ -300,6 +309,7 @@ const JobsPage = () => {
                     {paginatedJobs.map((job, index) => (
                       <Draggable key={job.id} draggableId={job.id.toString()} index={index}>
                         {(provided, snapshot) => (
+                          <Link to={`/jobs/${job.id}`}>
                           <motion.div
                             ref={provided.innerRef}
                             {...provided.draggableProps}
@@ -309,19 +319,16 @@ const JobsPage = () => {
                             exit={{ opacity: 0 }}
                             whileHover={{ y: -2 }}
                             transition={{ duration: 0.1 }}
-                            className={`p-6 border-b-2 border-violet-200 dark:border-indigo-900/30 last:border-b-0 hover:bg-gradient-to-r hover:from-violet-100/70 hover:to-fuchsia-100/70 dark:hover:from-indigo-950/30 dark:hover:to-purple-950/30 transition-all duration-150 rounded-2xl mx-2 my-2 shadow-lg shadow-violet-200/50 hover:shadow-[0_12px_40px_rgba(139,92,246,0.3)] ${
+                            className={`p-6 border-b-2 border-violet-200 dark:border-indigo-900/30 last:border-b-0 hover:bg-gradient-to-r hover:from-violet-100/70 hover:to-fuchsia-100/70 dark:hover:from-indigo-950/30 dark:hover:to-purple-950/30 transition-all duration-150 rounded-2xl mx-2 my-2 shadow-lg shadow-violet-200/50 hover:shadow-[0_12px_40px_rgba(139,92,246,0.3)] cursor-pointer ${
                               snapshot.isDragging ? 'bg-gray-100 dark:bg-gray-700 shadow-lg' : ''
                             }`}
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center space-x-3">
-                                  <Link 
-                                    to={`/jobs/${job.id}`}
-                                    className="text-lg font-medium text-gray-900 dark:text-gray-100 truncate hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                                  >
+                                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 truncate">
                                     {job.title}
-                                  </Link>
+                                  </h3>
                                   <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold shadow-xl ${
                                     job.status === 'active'
                                       ? 'bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 text-white shadow-emerald-500/60'
@@ -416,6 +423,7 @@ const JobsPage = () => {
                               </Menu>
                             </div>
                           </motion.div>
+                          </Link>
                         )}
                       </Draggable>
                     ))}

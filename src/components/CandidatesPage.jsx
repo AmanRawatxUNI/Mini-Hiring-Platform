@@ -10,7 +10,8 @@ import {
   ListBulletIcon,
   UserCircleIcon,
   PlusIcon,
-  ChatBubbleLeftIcon
+  ChatBubbleLeftIcon,
+  ChartBarIcon
 } from '@heroicons/react/24/outline'
 import { useApi, api } from '../hooks/useApi.js'
 import LoadingSpinner from './LoadingSpinner.jsx'
@@ -352,6 +353,13 @@ const CandidatesPage = () => {
         </div>
         
         <div className="flex items-center space-x-2 mt-4 sm:mt-0">
+          <Link
+            to="/analytics"
+            className="px-3 py-2 text-xs bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors flex items-center"
+          >
+            <ChartBarIcon className="h-4 w-4 mr-1" />
+            Analytics
+          </Link>
           <button
             onClick={forceReseed}
             className="px-3 py-2 text-xs bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"

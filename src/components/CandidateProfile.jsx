@@ -240,48 +240,46 @@ const CandidateProfile = () => {
             Back to Candidates
           </button>
 
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
-            <div className="flex items-start space-x-6">
-              <div className="relative">
-                <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center">
-                  <UserCircleIcon className="w-16 h-16 text-white" />
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
+            <div className="relative flex-shrink-0">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-2xl flex items-center justify-center">
+                <UserCircleIcon className="w-14 h-14 sm:w-16 sm:h-16 text-white" />
+              </div>
+              <div className={`absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r ${stageColors[candidate.stage]} rounded-full flex items-center justify-center border-4 border-gray-900`}>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2 break-words">{candidate.name}</h1>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-white/90 mb-4">
+                <div className="flex items-center min-w-0">
+                  <EnvelopeIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <span className="truncate text-sm sm:text-base">{candidate.email}</span>
                 </div>
-                <div className={`absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r ${stageColors[candidate.stage]} rounded-full flex items-center justify-center border-4 border-gray-900`}>
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                </div>
+                {candidate.phone && (
+                  <div className="flex items-center">
+                    <PhoneIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <span className="text-sm sm:text-base">{candidate.phone}</span>
+                  </div>
+                )}
               </div>
 
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold mb-2">{candidate.name}</h1>
-                <div className="flex items-center space-x-4 text-white/90 mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-white/80 mb-4">
+                <div className="flex items-center min-w-0">
+                  <BriefcaseIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <span className="truncate text-sm sm:text-base">{job?.title || 'Unknown Position'}</span>
+                </div>
+                {candidate.experience && (
                   <div className="flex items-center">
-                    <EnvelopeIcon className="h-4 w-4 mr-2" />
-                    {candidate.email}
+                    <AcademicCapIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+                    <span className="text-sm sm:text-base">{candidate.experience}</span>
                   </div>
-                  {candidate.phone && (
-                    <div className="flex items-center">
-                      <PhoneIcon className="h-4 w-4 mr-2" />
-                      {candidate.phone}
-                    </div>
-                  )}
-                </div>
+                )}
+              </div>
 
-                <div className="flex items-center space-x-6 text-white/80">
-                  <div className="flex items-center">
-                    <BriefcaseIcon className="h-4 w-4 mr-2" />
-                    {job?.title || 'Unknown Position'}
-                  </div>
-                  {candidate.experience && (
-                    <div className="flex items-center">
-                      <AcademicCapIcon className="h-4 w-4 mr-2" />
-                      {candidate.experience}
-                    </div>
-                  )}
-                </div>
-
-                <div className={`inline-flex items-center px-4 py-2 mt-4 bg-gradient-to-r ${stageColors[candidate.stage]} rounded-full text-white font-medium`}>
-                  {candidate.stage}
-                </div>
+              <div className={`inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r ${stageColors[candidate.stage]} rounded-full text-white font-medium text-sm sm:text-base`}>
+                {candidate.stage}
               </div>
             </div>
           </div>

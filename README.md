@@ -67,7 +67,7 @@ A modern, full-featured hiring platform built with React, Vite, and TailwindCSS.
 ### 🎨 UI/UX Features
 
 - ✅ **Dark/Light Mode**: System preference detection with manual toggle
-- ✅ **Responsive Design**: Mobile-first approach, works on all devices
+- ✅ **Responsive Design**: Mobile-first approach, fully optimized for all devices
 - ✅ **Smooth Animations**: Framer Motion with 10-50ms transitions
 - ✅ **Gradient Backgrounds**: Modern violet/fuchsia/cyan color scheme
 - ✅ **3D Effects**: Shadows, hover states, and depth
@@ -450,7 +450,7 @@ npm run build
 - [ ] Filter by stage
 - [ ] Switch to kanban view
 - [ ] Drag candidate between stages
-- [ ] View candidate profile
+- [ ] View candidate profile (mobile responsive)
 - [ ] Add note with @mention
 - [ ] View timeline
 
