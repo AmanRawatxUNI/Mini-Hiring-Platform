@@ -14,10 +14,16 @@ import {
   PlusIcon,
   CheckCircleIcon,
   XCircleIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  PencilIcon,
+  ArrowPathIcon,
+  CalendarIcon,
+  DocumentTextIcon,
+  TrashIcon
 } from '@heroicons/react/24/outline'
 import { useApi, api } from '../hooks/useApi.js'
 import LoadingSpinner from './LoadingSpinner.jsx'
+import Modal from './Modal.jsx'
 
 const CandidateProfile = () => {
   const { candidateId } = useParams()
@@ -30,7 +36,11 @@ const CandidateProfile = () => {
   const [showMentions, setShowMentions] = useState(false)
   const [mentionSearch, setMentionSearch] = useState('')
   const [cursorPosition, setCursorPosition] = useState(0)
+  const [showStageModal, setShowStageModal] = useState(false)
+  const [selectedStage, setSelectedStage] = useState('')
   const { request, loading, error } = useApi()
+
+  const stages = ['Applied', 'Phone Screen', 'Technical Interview', 'Final Interview', 'Offer', 'Rejected']
 
   // Mock team members for @mentions
   const teamMembers = [
@@ -73,8 +83,18 @@ const CandidateProfile = () => {
     }
   }
 
+  const updateCandidateStage = async (newStage) => {
+    const updatedCandidate = { ...candidate, stage: newStage }
+    await request(() => api.updateCandidateStage(candidate.id, newStage), {
+      onSuccess: () => {
+        setCandidate(updatedCandidate)
+        generateTimeline(updatedCandidate)
+        setShowStageModal(false)
+      }
+    })
+  }
+
   const generateTimeline = (candidate) => {
-    const stages = ['Applied', 'Phone Screen', 'Technical Interview', 'Final Interview', 'Offer', 'Rejected']
     const currentStageIndex = stages.indexOf(candidate.stage)
     
     const timelineEvents = []
@@ -251,7 +271,19 @@ const CandidateProfile = () => {
             </div>
 
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl sm:text-3xl font-bold mb-2 break-words">{candidate.name}</h1>
+              <div className="flex items-start justify-between gap-4 mb-2">
+                <h1 className="text-2xl sm:text-3xl font-bold break-words">{candidate.name}</h1>
+                <button
+                  onClick={() => {
+                    setSelectedStage(candidate.stage)
+                    setShowStageModal(true)
+                  }}
+                  className="flex-shrink-0 p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                  title="Change Stage"
+                >
+                  <PencilIcon className="h-5 w-5" />
+                </button>
+              </div>
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-white/90 mb-4">
                 <div className="flex items-center min-w-0">
                   <EnvelopeIcon className="h-4 w-4 mr-2 flex-shrink-0" />
@@ -463,19 +495,92 @@ const CandidateProfile = () => {
           <div className="card p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
             <div className="space-y-3">
-              <button className="w-full btn-primary">
+              <button 
+                onClick={() => {
+                  setSelectedStage(candidate.stage)
+                  setShowStageModal(true)
+                }}
+                className="w-full btn-primary flex items-center justify-center"
+              >
+                <ArrowPathIcon className="h-4 w-4 mr-2" />
+                Change Stage
+              </button>
+              <button className="w-full btn-secondary flex items-center justify-center">
+                <CalendarIcon className="h-4 w-4 mr-2" />
                 Schedule Interview
               </button>
-              <button className="w-full btn-secondary">
+              <button className="w-full btn-secondary flex items-center justify-center">
+                <EnvelopeIcon className="h-4 w-4 mr-2" />
                 Send Email
               </button>
-              <button className="w-full btn-secondary">
+              <button className="w-full btn-secondary flex items-center justify-center">
+                <DocumentTextIcon className="h-4 w-4 mr-2" />
                 Download Resume
+              </button>
+              <button className="w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center">
+                <TrashIcon className="h-4 w-4 mr-2" />
+                Reject Candidate
               </button>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Stage Change Modal */}
+      <Modal
+        isOpen={showStageModal}
+        onClose={() => setShowStageModal(false)}
+        title="Change Candidate Stage"
+        size="md"
+      >
+        <div className="space-y-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Select the new stage for {candidate.name}
+          </p>
+          
+          <div className="space-y-2">
+            {stages.map((stage) => (
+              <button
+                key={stage}
+                onClick={() => setSelectedStage(stage)}
+                className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+                  selectedStage === stage
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                    : 'border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="font-medium text-gray-900 dark:text-gray-100">{stage}</div>
+                    {stage === candidate.stage && (
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Current Stage</div>
+                    )}
+                  </div>
+                  {selectedStage === stage && (
+                    <CheckCircleIcon className="h-5 w-5 text-primary-600" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <button
+              onClick={() => setShowStageModal(false)}
+              className="flex-1 btn-secondary"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => updateCandidateStage(selectedStage)}
+              disabled={selectedStage === candidate.stage || loading}
+              className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Updating...' : 'Update Stage'}
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

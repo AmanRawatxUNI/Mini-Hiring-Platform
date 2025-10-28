@@ -367,26 +367,28 @@ const CandidatesPage = () => {
             Re-seed Data
           </button>
           {/* View Toggle */}
-          <div className="flex rounded-lg border border-gray-300 dark:border-gray-600">
+          <div className="flex rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden">
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2 rounded-l-lg ${
+              className={`px-3 py-2 text-sm flex items-center gap-2 transition-colors ${
                 viewMode === 'list'
                   ? 'bg-primary-600 text-white'
                   : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
               <ListBulletIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">List</span>
             </button>
             <button
               onClick={() => setViewMode('kanban')}
-              className={`p-2 rounded-r-lg ${
+              className={`px-3 py-2 text-sm flex items-center gap-2 transition-colors border-l border-gray-300 dark:border-gray-600 ${
                 viewMode === 'kanban'
                   ? 'bg-primary-600 text-white'
                   : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
               }`}
             >
               <ViewColumnsIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Kanban</span>
             </button>
           </div>
         </div>
